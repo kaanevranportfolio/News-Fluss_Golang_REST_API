@@ -1,0 +1,12 @@
+POST http://127.0.0.1:8080/news
+Content-Type: application/json
+
+{
+  "q": "artificial intelligence",   
+  "from": "2025-06-01",
+  "to": "2025-06-12",
+  "sortBy": "relevancy",
+  "language": "en",
+  "country": "us",
+  "category": "technology"
+}

@@ -1,0 +1,8 @@
+POST http://127.0.0.1:8080/sources
+Content-Type: application/json
+
+{
+    "category": "technology",
+    "language": "en",
+    "country": "us"
+}

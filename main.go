@@ -1,17 +1,17 @@
 package main
 
 import (
-	"github.com/gin-gonic/gin"
-	//"news-fluss/controllers"
+	"news-fluss/config"
 	"news-fluss/routes"
+
+	"github.com/gin-gonic/gin"
 )
 
 func main() {
-	r := gin.Default()
+	config.LoadConfig() // Load configuration at startup
 
+	r := gin.Default()
 	routes.SetupRoutes(r)
 
-	if err := r.Run(); err != nil {
-		panic(err)
-	}
+	r.Run() // Start the server
 }

@@ -3,23 +3,35 @@ package config
 import (
 	"log"
 	"os"
-
+	"sync"
 	"github.com/joho/godotenv"
 )
 
 type Config struct {
-	Port string
+	NewsAPIKey     string
+	NewsAPIBaseURL string
 }
 
-func LoadConfig() Config {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("Error loading .env file")
-	}
+var (
+	cfg  Config
+	once sync.Once
+)
 
-	return Config{
-		Port: getEnv("PORT", "8080"),
-	}
+func LoadConfig() {
+	once.Do(func() {
+		err := godotenv.Load()
+		if err != nil {
+			log.Fatal("Error loading .env file")
+		}
+		cfg = Config{
+			NewsAPIKey:     getEnv("NEWS_API_KEY", ""),
+			NewsAPIBaseURL: getEnv("NEWSAPI_BASE_URL", ""),
+		}
+	})
+}
+
+func GetConfig() Config {
+	return cfg
 }
 
 func getEnv(key, fallback string) string {
